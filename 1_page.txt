@@ -1,0 +1,188 @@
+Alert Desk
+
+Triage a morning of security alerts, phishing reports and device health
+Demo · invented data
+Managed endpoint security for Baltic Freight SIA · Defender-style alerts, all invented
+
+▶ 1-min demo
+
+How it works
+
+expand_more
+THIS MORNING · THU 19 NOV · 24 ALERTS AT 09:55
+
+12 to escalate now, 6 to investigate
+
+A ransomware attempt on a finance laptop, a credential-theft tool on one PC, a phishing link that one person opened, and an admin sign-in from Tor. The playbook closed 6 alerts that were stopped automatically.
+12
+escalate to L2 now
+6
+investigate
+6
+closed by playbook
+
+Queue
+
+Phishing check
+
+Device health
+
+Weekly report
+
+How well it works
+
+Escalate
+
+Investigate
+
+Close
+
+06:12
+Ransomware behavior detected in the file system
+High · Endpoint · FIN-LT-07
+ESCALATE
+5 min left
+07:05
+Suspicious PowerShell command line
+High · Endpoint · SRV-FILE01
+ESCALATE
+5 min left
+08:02
+Suspicious access to LSASS service
+High · Endpoint · ACC-PC-05
+ESCALATE
+5 min left
+09:40
+Attempt to turn off Microsoft Defender Antivirus protection
+High · Endpoint · LOG-PC-04
+ESCALATE
+45 min left
+07:32
+A potentially malicious URL click was detected
+Medium · Office 365 · a.berzina
+ESCALATE
+3 h 05 min left
+08:10
+Suspicious inbox forwarding rule
+Medium · Cloud Apps · j.saulite
+ESCALATE
+3 h 05 min left
+08:25
+Suspicious Office macro behavior
+Medium · Endpoint · ACC-PC-05
+ESCALATE
+3 h 05 min left
+08:40
+Anonymous IP address sign-in
+Medium · Identity · adm.jansons
+ESCALATE
+3 h 05 min left
+09:00
+Malware detected and quarantined
+Medium · Endpoint · SRV-APP02
+ESCALATE
+3 h 05 min left
+09:12
+Suspicious PowerShell command line
+Medium · Endpoint · WH-PC-03
+ESCALATE
+3 h 17 min left
+09:52
+Malware detected and quarantined
+Medium · Endpoint · MKT-LT-02
+ESCALATE
+3 h 57 min left
+09:31
+Email reported by user as malware or phish
+Informational · Office 365 · s.vitola
+ESCALATE
+23 h 36 min left
+08:31
+A potentially malicious URL click was detected
+High · Office 365 · j.liepa
+INVESTIGATE
+5 min left
+07:45
+Impossible travel activity
+Medium · Identity · k.kalnins
+INVESTIGATE
+3 h 05 min left
+08:42
+Unfamiliar sign-in properties
+Medium · Identity · r.petersons
+INVESTIGATE
+3 h 05 min left
+09:25
+Activity from infrequent country
+Medium · Cloud Apps · e.krumina
+INVESTIGATE
+3 h 30 min left
+08:50
+Suspicious scheduled task
+Low · Endpoint · IT-JUMP01
+INVESTIGATE
+7 h 05 min left
+09:20
+Mass download by a single user
+Low · Cloud Apps · m.grins
+INVESTIGATE
+7 h 25 min left
+06:40
+Malware detected and quarantined
+Medium · Endpoint · WH-PC-03
+CLOSE
+closed by playbook
+07:31
+Email messages containing malicious URL removed after delivery
+Medium · Office 365 · s.vitola
+CLOSE
+closed by playbook
+07:20
+PsExec used to run a remote command
+Low · Endpoint · IT-JUMP01
+CLOSE
+closed by playbook
+08:15
+Unwanted software detected
+Low · Endpoint · MKT-LT-02
+CLOSE
+closed by playbook
+09:45
+Unwanted software detected
+Low · Endpoint · ACC-PC-05
+CLOSE
+closed by playbook
+08:20
+Antivirus detected potentially unwanted application
+Informational · Endpoint · HR-PC-01
+CLOSE
+closed by playbook
+
+Open an alert
+
+ESCALATE
+Ransomware behavior detected in the file system
+06:12 · High · Endpoint
+device FIN-LT-07 · user l.ozola
+automatic action: Blocked, device contained · 5 min left
+Mass file renames to .lock01 in Finance share; process blocked after 41 files
+Why: R1 · 'ransomware' is always escalated, even when blocked
+Next steps
+Isolate the device or disable the account if the playbook allows
+Open an incident and hand over to L2 with the evidence
+Tell the customer's contact within the service level
+Keep the device isolated; check shares it could reach
+
+Hunting query to start with (Microsoft Defender Advanced Hunting, KQL)
+
+DeviceFileEvents
+| where Timestamp > ago(6h)
+| where DeviceName =~ "FIN-LT-07"
+| where ActionType in ("FileRenamed", "FileModified")
+| summarize Files = count() by bin(Timestamp, 5m), InitiatingProcessFileName
+| order by Timestamp asc
+
+Service levels are examples: High 1 h, Medium 4 h, Low 8 h, Informational next working day, counted from 09:00 for alerts that came in overnight. Containment and policy changes are recommended here, never carried out.
+
+Built by Jānis Saulītis with AI · playbook.py · phishing.py · health.py · fixed rules, no AI deciding
+See more tools
