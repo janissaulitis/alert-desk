@@ -1,0 +1,20 @@
+[theme]
+font = "Red Hat Text:https://fonts.googleapis.com/css2?family=Red+Hat+Text:wght@400;500;600;700&display=swap, sans-serif"
+headingFont = "Red Hat Display:https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@500;700;800&display=swap, sans-serif"
+codeFont = "Red Hat Mono:https://fonts.googleapis.com/css2?family=Red+Hat+Mono:wght@400;500;600&display=swap, monospace"
+baseFontWeight = 400
+baseRadius = "0.6rem"
+buttonRadius = "0.6rem"
+showWidgetBorder = true
+
+[theme.light]
+primaryColor = "#1F5FD6"
+backgroundColor = "#F4F5F8"
+secondaryBackgroundColor = "#FFFFFF"
+textColor = "#10151F"
+
+[theme.dark]
+primaryColor = "#5B9BFF"
+backgroundColor = "#0C111B"
+secondaryBackgroundColor = "#141B29"
+textColor = "#E8ECF4"
